@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Frostfire Alliance</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Roboto', sans-serif;
+            color: #fff;
+            background: black;
+            overflow: hidden;
+            touch-action: none;
+            user-select: none;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            object-fit: cover;
+            filter: brightness(0.3);
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+            background: black;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .menu a {
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            transition: background 0.3s, color 0.3s;
+            background: black;
+            border-radius: 5px;
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .menu a.active {
+            background: #fff;
+            color: #000;
+        }
+
+        .content-container {
+            display: flex;
+            height: calc(100vh - 60px);
+            width: 200%;
+            transform: translateX(0);
+            transition: transform 0.5s ease;
+        }
+
+        .content {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: opacity 0.5s ease;
+            opacity: 0;
+        }
+
+        .content.active {
+            opacity: 1;
+        }
+
+        .rules-container, .admin-container {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            width: 70%;
+            max-width: 500px;
+            height: auto;
+            text-align: center;
+            margin: auto;
+        }
+
+        .rules-container p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #f4f4f4;
+        }
+
+        .rules-buttons, .admin-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .rules-buttons button, .admin-buttons button {
+            background: #000;
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: background 0.3s, transform 0.2s;
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .rules-buttons button:hover, .admin-buttons button:hover {
+            background: #fff;
+            color: #000;
+            transform: scale(0.95);
+        }
+
+        .notification {
+            position: fixed;
+            top: 85%;
+            left: 75%;
+            transform: translate(-50%, -50%);
+            background: #ff0000;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            font-size: 16px;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .notification.show {
+            opacity: 1;
+        }
+
+        .telegram-button {
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background 0.3s, transform 0.2s;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+
+        .telegram-button:hover {
+            background-color: #0077b3;
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <video autoplay muted loop class="video-background">
+        <source src="video/video1.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+
+    <button class="telegram-button" onclick="window.location.href='telegram-login.php'">Вход через Telegram</button>
+
+    <div class="menu">
+        <a href="#" id="rules-link" class="active">Правила</a>
+        <a href="#" id="admins-link">Админы</a>
+    </div>
+
+    <div class="content-container">
+        <div id="rules" class="content active">
+            <div class="rules-container">
+                <p>1. Не флудить, спамить, капсить. - Мут от 60мин до 120 мин.</p>
+                <p>2. Использование твинка - 1 варн.</p>
+                <p>3. Не скидывать контент порнографического характера. - Мут от 60мин до 120 мин.</p>
+                <p>4. Не присылать любого вида скримеры. - Мут от 50мин до 80 мин.</p>
+                <p>5. Оскорбление родителей. - Бан.</p>
+                <p>6. Копать, создавать зелья и открывать кейсы нельзя! - Мут от 5мин до 20мин.</p>
+                <p>7. Не оскорблять и не провоцировать на оскорбления/конфликты. - Мут от 60мин до 120мин.</p>
+                <p>8. 200 сообщений в неделю обязательно иначе кик.</p>
+                <p>Незнание правил не освобождает от ответственности! Администрация не понимает шуток/рофлов и т.д.</p>
+            </div>
+        </div>
+
+        <div id="admins" class="content">
+            <div class="admin-container">
+                <div class="admin-buttons">
+                    <button onclick="window.location.href='https://t.me/Foxy43777'">Foxy43777 - Глава</button>
+                    <button onclick="window.location.href='https://t.me/Magorka4836'">Magorka4836 - Заместитель</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="notification" class="notification">Неверное имя пользователя или пароль!</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            showContent('rules');
+        });
+
+        document.getElementById('rules-link').addEventListener('click', function() {
+            showContent('rules');
+        });
+
+        document.getElementById('admins-link').addEventListener('click', function() {
+            showContent('admins');
+        });
+
+        function showContent(contentId) {
+            const container = document.querySelector('.content-container');
+            const links = document.querySelectorAll('.menu a');
+
+            if (contentId === 'rules') {
+                container.style.transform = 'translateX(0)';
+            } else {
+                container.style.transform = 'translateX(-50%)';
+            }
+
+            const contents = document.querySelectorAll('.content');
+            contents.forEach(content => {
+                if (content.id === contentId) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+
+            links.forEach(link => {
+                if (link.id === contentId + '-link') {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
